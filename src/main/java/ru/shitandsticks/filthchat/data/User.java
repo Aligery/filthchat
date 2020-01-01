@@ -1,6 +1,7 @@
 package ru.shitandsticks.filthchat.data;
 
 public class User {
+
     private String username;
     private String password;
 

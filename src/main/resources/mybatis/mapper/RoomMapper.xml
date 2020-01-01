@@ -1,0 +1,13 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.shitandsticks.filthchat.mappers.RoomMapper">
+
+    <resultMap id="room" type="ru.shitandsticks.filthchat.data.Room" autoMapping="true">
+        <id column="room_id" property="roomId"/>
+    </resultMap>
+
+    <select id="list" resultMap="room">
+      SELECT room_id, theme_room, anti_theme_room from rooms;
+    </select>
+
+
+</mapper>
