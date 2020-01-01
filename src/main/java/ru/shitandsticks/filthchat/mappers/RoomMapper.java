@@ -1,4 +1,4 @@
 package ru.shitandsticks.filthchat.mappers;
 
-public interface UsersMapper {
+public class RoomMapper {
 }
