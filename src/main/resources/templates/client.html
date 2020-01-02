@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+<div id="login-container">
+    <h1 class="title">Press button to do action</h1>
+
+        <button type="submit" id = "ConnectStomp">Connect to local stom server</button>
+        <button type="submit" id = "SendMessage">Send hello world message to server</button>
+
+    <script>
+        var stompButton = document.getElementById('ConnectStomp');
+        var messageButton = document.getElementById('SendMessage');
+
+        function doSomeAction(event) {
+            alert('Button pressed, start connected and action')
+
+            var socket = new SockJS('/ws');
+            stompClient = Stomp.over(socket);
+
+            stompClient.connect({}, onConnected, onError);
+        }
+
+        function onConnected() {
+            alert('try connect');
+            // Subscribe to the Public Topic
+            stompClient.subscribe('/topic/publicChatRoom', onMessageReceived);
+
+            // Tell your login to the server
+            stompClient.send("/app/chat/addUser",
+                {},
+                JSON.stringify({sender: login, type: 'JOIN'})
+            )
+
+        }
+
+        function onError(error) {
+            alert('Could not connect to WebSocket server. Please refresh this page to try again!');
+        }
+
+        function sendMessage(event) {
+            alert('try send message');
+            var messageContent = messageInput.value.trim();
+            if(messageContent && stompClient) {
+                var chatMessage = {
+                    sender: login,
+                    content: "hello motherfucker"
+                };
+                stompClient.send("/app/chat/sendMessage", {}, JSON.stringify(chatMessage));
+                messageInput.value = '';
+            }
+            event.preventDefault();
+        }
+
+        stompButton.addEventListener('click', doSomeAction);
+        messageButton.addEventListener('click', sendMessage);
+
+    </script>
+
+</div>
+</body>
+</html>

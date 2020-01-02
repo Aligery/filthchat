@@ -5,8 +5,6 @@ public class AuthUser {
     private int id;
     private String login;
 
-
-
     public int getId() {
         return id;
     }

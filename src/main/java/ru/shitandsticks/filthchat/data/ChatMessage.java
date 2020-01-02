@@ -20,4 +20,12 @@ public class ChatMessage {
     public void setLogin(String login) {
         this.login = login;
     }
+
+    @Override
+    public String toString() {
+        return "ChatMessage{" +
+                "content='" + content + '\'' +
+                ", login='" + login + '\'' +
+                '}';
+    }
 }

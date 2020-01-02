@@ -5,9 +5,24 @@
         <id column="id" property="id"/>
     </resultMap>
 
+    <resultMap id="user" type="ru.shitandsticks.filthchat.data.User" autoMapping="true">
+    </resultMap>
+
     <select id="listAuthUser" resultMap="authUser">
       SELECT id, login FROM system_user;
     </select>
+
+    <insert id="registerNewUser">
+      insert into system_user (login, password)
+      values (#{obj.username}, #{obj.password});
+    </insert>
+
+    <select id="loginUser" resultMap="authUser">
+      SELECT id, login FROM system_user
+      where lower(login) = lower(#{obj.username})
+            AND lower(password) = lower(#{obj.password})
+    </select>
+
 
 
 </mapper>

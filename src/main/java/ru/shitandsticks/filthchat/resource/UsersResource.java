@@ -15,12 +15,13 @@ public class UsersResource {
 
     @PostMapping(value = "/login", produces = "application/json")
     public ResponseEntity getUserId(User user) {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(userService.loginUser(user));
     }
 
     @PutMapping(value = "/register", produces = "application/json")
     public ResponseEntity regUser(User user) {
-        return ResponseEntity.ok().build();
+        userService.registerNewUser(user);
+        return ResponseEntity.ok(user.getUsername());
     }
 
     @GetMapping(value = "/list", produces = "application/json")
